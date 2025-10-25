@@ -1,10 +1,14 @@
-import Image from "next/image";
+import { CommentBox } from '@/components/CommentBox';
+import { Form } from '@/components/Form';
+import { Header } from '@/components/Header';
 
 export default function Home() {
   return (
-    <div>
-      <div className="flex justify-center items-center h-screen">
-        <h1 className="text-3xl ">Red Playground</h1>
+    <div className="bg-white">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <Header />
+        <Form />
+        <CommentBox />
       </div>
     </div>
   );
