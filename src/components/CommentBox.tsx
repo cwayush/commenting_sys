@@ -1,10 +1,15 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { Button, UserModal } from './ui';
-import { CalendarIcon, ClockIcon } from './icons';
-import { Card } from './card';
+
+
+
 import { Comment } from './types';
+import Button from './ui/Button';
+import { Card } from './Card';
+import UserModal from './ui/UserModal';
+import ClockIcon from './icons/ClockIcon';
+import CalendarIcon from './icons/CalendarIcon';
 
 type SortOrder = 'newest' | 'oldest';
 

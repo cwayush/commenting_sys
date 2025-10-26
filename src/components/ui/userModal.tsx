@@ -2,7 +2,7 @@
 import React from 'react';
 import { Comment } from '../types';
 import Image from 'next/image';
-import Avatar from './avatar';
+import Avatar from './Avatar';
 
 type UserModalProps = {
   user: Comment | null;
