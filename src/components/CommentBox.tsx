@@ -2,12 +2,12 @@
 
 import React, { useMemo, useState } from 'react';
 
-import { Comment } from '@/components/types';
-import Button from '@/components/ui/Button';
-import { Card } from '@/components/Card';
-import UserModal from '@/components/ui/UserModal';
-import ClockIcon from '@/components/icons/ClockIcon';
-import CalendarIcon from '@/components/icons/CalendarIcon';
+import { Comment } from './types';
+import Button from './ui/Button';
+import { Card } from './Card';
+import UserModal from './ui/UserModal';
+import ClockIcon from './icons/ClockIcon';
+import CalendarIcon from './icons/CalendarIcon';
 
 type SortOrder = 'newest' | 'oldest';
 

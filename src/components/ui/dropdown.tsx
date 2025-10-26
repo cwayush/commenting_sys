@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { User } from '@/components/types';
-import Avatar from '@/components/ui/Avatar';
+import { User } from './../types';
+import Avatar from './../ui/Avatar';
 
 type DropdownProps = {
   id: string;

@@ -5,10 +5,10 @@ import { useState } from 'react';
 import CommentInfo from '@/mocks/comments.json';
 import UserInfo from '@/mocks/user.json';
 
-import { Comment } from '@/components/types';
-import { Header } from '@/components/Header';
-import { Form } from '@/components/Form';
-import { CommentBox } from '@/components/CommentBox';
+import { Comment } from './../components/types';
+import { Header } from './../components/Header';
+import { Form } from './../components/Form';
+import { CommentBox } from './../components/CommentBox';
 
 export default function Home() {
   const initialComments = CommentInfo.map((c) => {
