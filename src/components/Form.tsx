@@ -4,8 +4,8 @@ import { Comment, User } from './types';
 import { CommentMsg } from './CommentMsg';
 import Button from './Button';
 
-import MessageIcon from './iconss/MessageIcon';
-import SendIcon from './iconss/SendIcon';
+import MessageIcon from './icons/MessageIcon';
+import SendIcon from './icons/SendIcon';
 import Dropdown from './Dropdown';
 
 type FormProps = {
