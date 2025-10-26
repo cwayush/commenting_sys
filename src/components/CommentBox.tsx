@@ -6,8 +6,8 @@ import { Comment } from './types';
 import Button from './Button';
 import { Card } from './Card';
 import UserModal from './UserModal';
-import ClockIcon from './icons/ClockIcon';
-import CalendarIcon from './icons/CalendarIcon';
+import ClockIcon from './iconss/ClockIcon';
+import CalendarIcon from './iconss/CalendarIcon';
 
 type SortOrder = 'newest' | 'oldest';
 
