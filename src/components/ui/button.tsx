@@ -1,6 +1,6 @@
 import React from 'react';
 
-type IconButtonProps = {
+type ButtonProps = {
   children: React.ReactNode;
   icon?: React.ReactNode;
   active?: boolean;
@@ -11,7 +11,7 @@ type IconButtonProps = {
   ariaLabel?: string;
 };
 
-export const IconButton: React.FC<IconButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
   icon,
   active = false,
@@ -54,3 +54,5 @@ export const IconButton: React.FC<IconButtonProps> = ({
     </button>
   );
 };
+
+export default Button;

@@ -1,8 +1,8 @@
 // components/Card.tsx
 'use client';
 import React from 'react';
-import { Avatar } from './Avatar';
 import { Comment } from './types';
+import { Avatar } from './ui';
 
 type CardProps = {
   user: Comment;

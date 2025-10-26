@@ -1,11 +1,14 @@
-import React from "react";
+import React from 'react';
 
 type CalendarIconProps = {
   className?: string;
   size?: number;
 };
 
-const CalendarIcon: React.FC<CalendarIconProps> = ({ className = "", size = 24 }) => {
+const CalendarIcon: React.FC<CalendarIconProps> = ({
+  className = '',
+  size = 24,
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

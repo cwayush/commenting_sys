@@ -1,13 +1,10 @@
-// components/CommentBox.tsx
 'use client';
+
 import React, { useMemo, useState } from 'react';
-import Image from 'next/image';
-import { Card } from './Card';
+import { Button, UserModal } from './ui';
+import { CalendarIcon, ClockIcon } from './icons';
+import { Card } from './card';
 import { Comment } from './types';
-import { IconButton } from './IconButton';
-import { UserModal } from './UserModal';
-import ClockIcon from './ClockIcon';
-import CalendarIcon from './CalendarIcon';
 
 type SortOrder = 'newest' | 'oldest';
 
@@ -17,10 +14,10 @@ export const CommentBox = ({ data }: { data: Comment[] }) => {
   const length = data.length;
 
   const sortedComments = useMemo(() => {
-    const copy = [...(data || [])];
-
+    const copy = [...data];
+ 
     copy.sort((a, b) => {
-      const aKey = a.id;
+      const aKey = a.id; 
       const bKey = b.id;
 
       const aVal =
@@ -45,23 +42,23 @@ export const CommentBox = ({ data }: { data: Comment[] }) => {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-color">Comments ({length})</h2>
           <div className="flex gap-2">
-            <IconButton
+            <Button
               icon={<ClockIcon />}
               active={sortOrder === 'newest'}
               onClick={() => setSortOrder('newest')}
               ariaLabel="Sort by newest"
             >
               Newest
-            </IconButton>
+            </Button>
 
-            <IconButton
+            <Button
               icon={<CalendarIcon />}
               active={sortOrder === 'oldest'}
               onClick={() => setSortOrder('oldest')}
               ariaLabel="Sort by oldest"
             >
               Oldest
-            </IconButton>
+            </Button>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: number | string;
   name: string;
   email: string;
   company: {
@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface Comment {
-  id: string;
+  id: number | string;
   name: string;
   email: string;
   companyName: string;

@@ -1,15 +1,27 @@
 'use client';
 import React from 'react';
-import { Avatar } from './Avatar';
-import { Comment } from './types'; // ✅ use Lucide icons
+import { Comment } from '../types';
 import Image from 'next/image';
+import Avatar from './avatar';
 
 type UserModalProps = {
   user: Comment | null;
   onClose: () => void;
 };
 
-export const UserModal: React.FC<UserModalProps> = ({ user, onClose }) => {
+const SubDetails = ({ label = '', value = '', iconUrl = '', iconAlt = '' }) => {
+  return (
+    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+      <Image src={iconUrl} alt={iconAlt} width={17} height={17} />
+      <div>
+        <p className="text-sm text-muted-color">{label}</p>
+        <p className="font-semibold text-color">{value}</p>
+      </div>
+    </div>
+  );
+};
+
+const UserModal: React.FC<UserModalProps> = ({ user, onClose }) => {
   if (!user) return null;
 
   return (
@@ -33,34 +45,27 @@ export const UserModal: React.FC<UserModalProps> = ({ user, onClose }) => {
 
         <div className="space-y-4 pt-4">
           <div className="space-y-4"></div>
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-            <Image src="/user.svg" alt="Comment icon" width={17} height={17} />
-            <div>
-              <p className="text-sm text-muted-color">Full Name</p>
-              <p className="font-semibold text-color">{user.name}</p>
-            </div>
-          </div>
 
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-            <Image src="email.svg" alt="Comment icon" width={17} height={17} />
-            <div>
-              <p className="text-sm text-muted-color">Email Address</p>
-              <p className="font-semibold text-color">{user.email}</p>
-            </div>
-          </div>
+          <SubDetails
+            label="Name"
+            value={user.name}
+            iconUrl="/user.svg"
+            iconAlt="User icon"
+          />
 
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-            <Image
-              src="/company.svg"
-              alt="Comment icon"
-              width={17}
-              height={17}
-            />
-            <div>
-              <p className="text-sm text-muted-color">Company</p>
-              <p className="font-semibold text-color">{user.companyName}</p>
-            </div>
-          </div>
+          <SubDetails
+            label="Email"
+            value={user.email}
+            iconUrl="/email.svg"
+            iconAlt="Email icon"
+          />
+
+          <SubDetails
+            label="Company"
+            value={user.companyName || 'N/A'}
+            iconUrl="/company.svg"
+            iconAlt="Company icon"
+          />
 
           <div className="flex items-center justify-center pt-2">
             <div className="inline-flex items-center rounded-full bg-muted/50 text-xs font-semibold  px-4 py-2">
@@ -84,3 +89,5 @@ export const UserModal: React.FC<UserModalProps> = ({ user, onClose }) => {
     </div>
   );
 };
+
+export default UserModal;

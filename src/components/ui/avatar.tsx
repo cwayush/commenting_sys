@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Avatar = ({
+const Avatar = ({
   name = '',
   size = 'md',
   className = '',
@@ -9,8 +9,8 @@ export const Avatar = ({
   const initials = name
     ? name
         .split(' ')
-        .map((n) => n[0])
         .slice(0, 2)
+        .map((n) => n[0])
         .join('')
         .toUpperCase()
     : '?';
@@ -24,7 +24,7 @@ export const Avatar = ({
     <div
       className={`
         flex items-center justify-center rounded-full font-semibold
-        bg-avatar-bg text-avatar-text select-none cursor-pointer
+        bg-avatar-bg text-avatar-text  cursor-pointer
         hover:ring-2 hover:ring-primary hover:ring-offset-2
         transition-all duration-200
         ${sizeClasses} ${className}
@@ -34,3 +34,5 @@ export const Avatar = ({
     </div>
   );
 };
+
+export default Avatar;

@@ -1,32 +1,21 @@
-'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { UserSelect, User } from './Select';
-import { CommentMsg } from './CommentMsg';
-import { IconButton } from './IconButton';
-import MessageIcon from './MessageIcon';
-import SendIcon from './SendIcon';
-
-type Comment = {
-  id: number | string;
-  name: string;
-  email: string;
-  companyName?: string;
-  body: string;
-};
+import { Comment, User } from './types';
+import { MessageIcon, SendIcon } from './icons';
+import { Button, Dropdown } from './ui';
+import { CommentMsg } from './commentMsg';
 
 type FormProps = {
   users: User[];
-  onAddComment: (c: Comment) => void;
+  onAddComment: (comment: Comment) => void;
 };
 
 export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
-  const [userId, setUserId] = useState<string | number | null>(
-    users.length ? users[0].id : null
-  );
   const [message, setMessage] = useState('');
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  const selectedUser = users.find((u) => String(u.id) === String(userId));
+  const handleUserSelection = (selectedUser: User) => {
+    setSelectedUser(selectedUser);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +30,7 @@ export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
     };
 
     onAddComment(newComment);
+    setSelectedUser(null);
     setMessage('');
   };
   const isDisabled = !message.trim() || !selectedUser;
@@ -49,23 +39,23 @@ export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
     <div className="space-y-8">
       <div className="rounded-lg border text-card-color shadow-sm p-6 bg-comment-bg border-comment-border">
         <div className="flex items-center gap-2 mb-4">
-    
           <MessageIcon className="text-primary" />
           <h3 className="text-lg font-semibold text-color">Add a Comment</h3>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="user" className="block text-sm font-medium mb-1">
+            <label htmlFor="user" className="block text-sm font-medium mb-2">
               Select User
             </label>
 
-            <UserSelect
+            <Dropdown
+              id="user"
               users={users}
-              value={userId}
-              onChange={(id) => setUserId(id)}
+              selected={selectedUser}
+              onChange={handleUserSelection}
             />
-            <CommentMsg selectedUser={selectedUser} />
+            {selectedUser && <CommentMsg selectedUser={selectedUser} />}
           </div>
 
           <div>
@@ -76,8 +66,7 @@ export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
               Your Comment
             </label>
             <textarea
-              id="message"
-              placeholder="Write your comment here..."
+              placeholder=" Write your comment here..."
               rows={3}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -85,7 +74,7 @@ export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
             />
           </div>
 
-          <IconButton
+          <Button
             icon={<SendIcon />}
             type="submit"
             disabled={isDisabled}
@@ -93,7 +82,7 @@ export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
             ariaLabel="Post Comment"
           >
             Post Comment
-          </IconButton>
+          </Button>
         </form>
       </div>
     </div>

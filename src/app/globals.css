@@ -5,8 +5,7 @@
   --foreground: hsl(220 15% 15%);
   --card: 0 0% 100%;
   --card-foreground: 220 15% 15%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 220 15% 15%;
+
   --primary: 217 91% 60%;
 
   --muted: 220 14% 96%;
@@ -35,8 +34,6 @@
   --muted-foreground: 215 20.2% 65.1%;
 
   --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
 }
 
 @theme inline {
@@ -52,7 +49,9 @@ body {
   font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
 }
-
+.ring-primary {
+  color: hsl(var(--ring));
+}
 .text-card-color {
   color: hsl(var(--card-foreground));
 }
@@ -70,9 +69,11 @@ body {
   background-color: hsl(var(--primary));
 }
 
-
 .bg-comment-bg {
   background-color: hsl(var(--comment-bg));
+}
+.ring-primary {
+  border-color: hsl(var(--primary));
 }
 
 .border-comment-border {

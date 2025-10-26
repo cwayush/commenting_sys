@@ -1,25 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Avatar } from './Avatar';
+import Avatar from './avatar';
+import { User } from '../types';
 
-export type User = {
-  id: number | string;
-  name: string;
-  email: string;
-  company?: {
-    name?: string;
-  };
-};
-
-type UserSelectProps = {
+type DropdownProps = {
+  id: string;
   users: User[];
-  value?: string | number | null;
-  onChange: (id: string | number) => void;
+  selected: User | null;
+  onChange: (user: User) => void;
   placeholder?: string;
 };
 
-export const UserSelect: React.FC<UserSelectProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
+  id,
   users,
-  value,
+  selected,
   onChange,
   placeholder = 'Choose a user to comment as...',
 }) => {
@@ -35,18 +29,17 @@ export const UserSelect: React.FC<UserSelectProps> = ({
     return () => window.removeEventListener('click', handleClick);
   }, []);
 
-  const selected = users.find((u) => String(u.id) === String(value)) ?? null;
-
-  const orderedUsers: User[] = selected
-    ? [selected, ...users.filter((u) => String(u.id) !== String(selected.id))]
-    : users;
+  const handleSelect = (user: User) => {
+    onChange(user);
+    setOpen(false);
+  };
 
   return (
-    <div className="relative" ref={wrapperRef}>
+    <div className="relative " ref={wrapperRef} key={id}>
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
-        className="w-full text-left border border-gray-200 rounded-md p-2 flex items-center gap-3 bg-gray-50 hover:shadow-sm"
+        className="w-full text-left border border-gray-200 rounded-md p-2 flex items-center gap-3 bg-gray-50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -84,7 +77,7 @@ export const UserSelect: React.FC<UserSelectProps> = ({
             </div>
           </>
         ) : (
-          <div className="text-sm text-muted-color">{placeholder}</div>
+          <div className="text-sm text-muted-color ml-1">{placeholder}</div>
         )}
       </button>
 
@@ -93,16 +86,15 @@ export const UserSelect: React.FC<UserSelectProps> = ({
           <ul
             role="listbox"
             aria-label="Users"
-            className="divide-y divide-gray-100"
+            className="divide-y divide-gray-100 "
           >
-            {orderedUsers.map((u) => {
-              const isActive = String(u.id) === String(value);
+            {users.map((u) => {
+              const isActive = String(u.id) === String(selected?.id);
               return (
                 <li
                   key={u.id}
                   onClick={() => {
-                    onChange(u.id);
-                    setOpen(false);
+                    handleSelect(u);
                   }}
                   role="option"
                   aria-selected={isActive}
@@ -147,3 +139,5 @@ export const UserSelect: React.FC<UserSelectProps> = ({
     </div>
   );
 };
+
+export default Dropdown;

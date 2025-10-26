@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-import { CommentBox } from '@/components/CommentBox';
-import { Form } from '@/components/Form';
-import { Header } from '@/components/Header';
 import CommentInfo from '../mocks/comments.json';
 import UserInfo from '../mocks/user.json';
+import { Header } from '@/components/header';
+import { Form } from '@/components/form';
+import { CommentBox } from '@/components/commentBox';
 import { Comment } from '@/components/types';
 
 export default function Home() {
@@ -14,16 +14,16 @@ export default function Home() {
     const userFromUsers = UserInfo.find((u) => u.id === c.id);
     return {
       id: c.id,
-      name: userFromUsers?.name,
-      email: userFromUsers?.email,
-      companyName: userFromUsers?.company.name,
+      name: userFromUsers?.name || c.name,
+      email: userFromUsers?.email || c.email,
+      companyName: userFromUsers?.company.name || '',
       body: c.body,
     };
   });
 
-  const [comments, setComments] = useState(initialComments);
+  const [comments, setComments] = useState<Comment[]>(initialComments);
 
-  const handleAddComment = (newComment) => {
+  const handleAddComment = (newComment: Comment) => {
     setComments((prev) => [newComment, ...prev]);
   };
 

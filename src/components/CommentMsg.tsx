@@ -1,4 +1,6 @@
-export const CommentMsg = ({ selectedUser }) => {
+import { User } from './types';
+
+export const CommentMsg = ({ selectedUser }: { selectedUser: User }) => {
   return (
     <p className="text-sm text-muted-color mt-2">
       Commenting as{' '}
