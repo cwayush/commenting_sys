@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Comment, User } from './types';
 
 import { CommentMsg } from './CommentMsg';
-import Button from './ui/Button';
+import Button from './Button';
 
 import MessageIcon from './icons/MessageIcon';
 import SendIcon from './icons/SendIcon';
-import Dropdown from './ui/Dropdown';
+import Dropdown from './Dropdown';
 
 type FormProps = {
   users: User[];

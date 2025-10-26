@@ -3,9 +3,9 @@
 import React, { useMemo, useState } from 'react';
 
 import { Comment } from './types';
-import Button from './ui/Button';
+import Button from './Button';
 import { Card } from './Card';
-import UserModal from './ui/UserModal';
+import UserModal from './UserModal';
 import ClockIcon from './icons/ClockIcon';
 import CalendarIcon from './icons/CalendarIcon';
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Comment } from './types';
-import Avatar from './ui/Avatar';
+import Avatar from './Avatar';
 
 type CardProps = {
   user: Comment;
