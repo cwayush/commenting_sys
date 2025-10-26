@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import CommentInfo from '../mocks/comments.json';
-import UserInfo from '../mocks/user.json';
+import CommentInfo from '@/mocks/comments.json';
+import UserInfo from '@/mocks/user.json';
 
 import { Comment } from '@/components/types';
 import { Header } from '@/components/Header';

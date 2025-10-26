@@ -1,4 +1,4 @@
-import { User } from './types';
+import { User } from '@/components/types';
 
 export const CommentMsg = ({ selectedUser }: { selectedUser: User }) => {
   return (

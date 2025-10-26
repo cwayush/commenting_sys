@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import { Comment } from '../types';
+import { Comment } from '@/components/types';
 import Image from 'next/image';
-import Avatar from './Avatar';
+import Avatar from '@/components/ui/Avatar';
 
 type UserModalProps = {
   user: Comment | null;
