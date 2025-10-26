@@ -66,6 +66,11 @@ body {
   color: hsl(var(--primary));
 }
 
+.bg-primary {
+  background-color: hsl(var(--primary));
+}
+
+
 .bg-comment-bg {
   background-color: hsl(var(--comment-bg));
 }
@@ -76,6 +81,11 @@ body {
 .bg-avatar-bg {
   background-color: hsl(var(--avatar-bg));
 }
+
+.bg-muted\/50 {
+  background-color: hsl(var(--muted) / 0.5);
+}
+
 .text-avatar-text {
   color: hsl(var(--avatar-text));
 }

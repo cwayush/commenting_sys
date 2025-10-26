@@ -1,35 +1,73 @@
+'use client';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { UserSelect, User } from './Select';
+import { CommentMsg } from './CommentMsg';
+import { IconButton } from './IconButton';
+import MessageIcon from './MessageIcon';
+import SendIcon from './SendIcon';
 
-export const Form = () => {
+type Comment = {
+  id: number | string;
+  name: string;
+  email: string;
+  companyName?: string;
+  body: string;
+};
+
+type FormProps = {
+  users: User[];
+  onAddComment: (c: Comment) => void;
+};
+
+export const Form: React.FC<FormProps> = ({ users, onAddComment }) => {
+  const [userId, setUserId] = useState<string | number | null>(
+    users.length ? users[0].id : null
+  );
+  const [message, setMessage] = useState('');
+
+  const selectedUser = users.find((u) => String(u.id) === String(userId));
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedUser || !message.trim()) return;
+
+    const newComment: Comment = {
+      id: Date.now(),
+      name: selectedUser.name,
+      email: selectedUser.email,
+      companyName: selectedUser.company?.name,
+      body: message.trim(),
+    };
+
+    onAddComment(newComment);
+    setMessage('');
+  };
+  const isDisabled = !message.trim() || !selectedUser;
+
   return (
     <div className="space-y-8">
       <div className="rounded-lg border text-card-color shadow-sm p-6 bg-comment-bg border-comment-border">
         <div className="flex items-center gap-2 mb-4">
-          <Image
-            src="/comment.svg"
-            alt="Comment icon"
-            width={20}
-            height={20}
-            className="opacity-70"
-          />
-          <h3 className="text-lg font-semibold text-color">
-            Add a Comment
-          </h3>
+    
+          <MessageIcon className="text-primary" />
+          <h3 className="text-lg font-semibold text-color">Add a Comment</h3>
         </div>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="comment" className="block text-sm font-medium mb-1">
+            <label htmlFor="user" className="block text-sm font-medium mb-1">
               Select User
             </label>
-            <select
-              id="comment"
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select an option</option>
-            </select>
-            <p className="text-sm text-muted-color mt-1">Commenting as </p>
+
+            <UserSelect
+              users={users}
+              value={userId}
+              onChange={(id) => setUserId(id)}
+            />
+            <CommentMsg selectedUser={selectedUser} />
           </div>
+
           <div>
             <label
               htmlFor="message"
@@ -41,22 +79,21 @@ export const Form = () => {
               id="message"
               placeholder="Write your comment here..."
               rows={3}
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full border border-gray-200 rounded-md bg-gray-50 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <button
+
+          <IconButton
+            icon={<SendIcon />}
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
+            disabled={isDisabled}
+            active={true}
+            ariaLabel="Post Comment"
           >
-            <Image
-              src="/submit_icon.svg"
-              alt="Comment icon"
-              width={17}
-              height={17}
-              className="opacity-70"
-            />
-            <span className="text-[0.9rem] font-medium">Post Comment</span>
-          </button>
+            Post Comment
+          </IconButton>
         </form>
       </div>
     </div>

@@ -1,42 +1,78 @@
+// components/CommentBox.tsx
 'use client';
-
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { Card } from './Card';
+import { Comment } from './types';
+import { IconButton } from './IconButton';
+import { UserModal } from './UserModal';
+import ClockIcon from './ClockIcon';
+import CalendarIcon from './CalendarIcon';
 
+type SortOrder = 'newest' | 'oldest';
 
-export const CommentBox = () => {
+export const CommentBox = ({ data }: { data: Comment[] }) => {
+  const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
+  const [selectedUser, setSelectedUser] = useState<Comment | null>(null);
+  const length = data.length;
+
+  const sortedComments = useMemo(() => {
+    const copy = [...(data || [])];
+
+    copy.sort((a, b) => {
+      const aKey = a.id;
+      const bKey = b.id;
+
+      const aVal =
+        typeof aKey === 'string' && !/^\d+$/.test(aKey)
+          ? Date.parse(aKey)
+          : Number(aKey);
+      const bVal =
+        typeof bKey === 'string' && !/^\d+$/.test(bKey)
+          ? Date.parse(bKey)
+          : Number(bKey);
+
+      if (sortOrder === 'newest') return bVal - aVal;
+      return aVal - bVal;
+    });
+
+    return copy;
+  }, [data, sortOrder]);
+
   return (
     <>
       <div className="space-y-6 mt-6 ">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-color">Comments</h2>
+          <h2 className="text-2xl font-bold text-color">Comments ({length})</h2>
           <div className="flex gap-2">
-            <button className="px-4 py-2 flex gap-2 items-center bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-              <Image
-                src="/newest.svg"
-                alt="Comment icon"
-                width={17}
-                height={17}
-                className="opacity-70"
-              />
-              <span className="text-[0.9rem] font-medium">Newest</span>
-            </button>
-            <button className="px-4 py-2 flex gap-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
-              <Image
-                src="/oldest.svg"
-                alt="Comment icon"
-                width={17}
-                height={17}
-                className="opacity-70"
-              />
-              <span className="text-[0.9rem] font-medium">Oldest</span>
-            </button>
+            <IconButton
+              icon={<ClockIcon />}
+              active={sortOrder === 'newest'}
+              onClick={() => setSortOrder('newest')}
+              ariaLabel="Sort by newest"
+            >
+              Newest
+            </IconButton>
+
+            <IconButton
+              icon={<CalendarIcon />}
+              active={sortOrder === 'oldest'}
+              onClick={() => setSortOrder('oldest')}
+              ariaLabel="Sort by oldest"
+            >
+              Oldest
+            </IconButton>
           </div>
         </div>
+
         <div className="space-y-4">
-          <Card />
+          {sortedComments.map((c: Comment) => (
+            <Card key={c.id} user={c} onOpenUser={(u) => setSelectedUser(u)} />
+          ))}
         </div>
       </div>
+
+      <UserModal user={selectedUser} onClose={() => setSelectedUser(null)} />
     </>
   );
 };
